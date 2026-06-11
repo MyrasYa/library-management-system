@@ -4,11 +4,13 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <h1 class="display-6 mb-3">Category Management</h1>
+    <h1 class="display-6 mb-3">
+        Book Management
+    </h1>
 
-    <a href="{{ route('categories.create') }}"
+    <a href="{{ route('books.create') }}"
         class="btn btn-primary">
-        Add Category
+        Add Book
     </a>
 
 </div>
@@ -24,29 +26,39 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Category Name</th>
+            <th>Code</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th>Year</th>
             <th width="180">Action</th>
         </tr>
     </thead>
 
     <tbody>
 
-        @forelse($categories as $category)
+        @forelse($books as $book)
 
         <tr>
 
             <td>{{ $loop->iteration }}</td>
 
-            <td class="">{{ $category->name }}</td>
+            <td>{{ $book->book_code }}</td>
+
+            <td>{{ $book->title }}</td>
+
+            <td>{{ $book->author }}</td>
+
+            <td>{{ $book->category->name }}</td>
+
+            <td>{{ $book->publish_year }}</td>
 
             <td>
-
-                <a href="{{ route('categories.edit', $category) }}"
-                    class="btn btn-warning btn-sm px-3">
+                <a href="{{ route('books.edit', $book) }}" class="btn btn-warning btn-sm px-3">
                     Edit
                 </a>
 
-                <form action="{{ route('categories.destroy', $category) }}"
+                <form action="{{ route('books.destroy', $book) }}"
                     method="POST"
                     class="d-inline">
 
@@ -55,8 +67,10 @@
 
                     <button type="submit"
                         class="btn btn-danger btn-sm px-4"
-                        onclick="return confirm('Delete this category?')">
+                        onclick="return confirm('Delete this book?')">
+
                         Delete
+
                     </button>
 
                 </form>
@@ -68,8 +82,8 @@
         @empty
 
         <tr>
-            <td colspan="3" class="text-center">
-                No categories found.
+            <td colspan="7" class="text-center">
+                No books found.
             </td>
         </tr>
 

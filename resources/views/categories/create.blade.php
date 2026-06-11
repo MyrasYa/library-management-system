@@ -1,59 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Category</title>
+@extends('layouts.master')
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+@section('content')
 
-<div class="container mt-5">
+<h1 class="display-6 mb-3">Add Category</h1>
 
-    <h2>Add Category</h2>
+<a href="{{ route('categories.index') }}"
+    class="btn btn-secondary mb-3">
+    Back
+</a>
 
-    <a href="{{ route('categories.index') }}"
-       class="btn btn-secondary mb-3">
-        Back
-    </a>
+<form action="{{ route('categories.store') }}"
+    method="POST">
 
-    <form action="{{ route('categories.store') }}"
-          method="POST">
+    @csrf
 
-        @csrf
+    <div class="mb-3">
 
-        <div class="mb-3">
+        <label class="form-label">
+            Category Name
+        </label>
 
-            <label class="form-label">
-                Category Name
-            </label>
+        <input
+            type="text"
+            name="name"
+            class="form-control"
+            value="{{ old('name') }}">
 
-            <input
-                type="text"
-                name="name"
-                class="form-control"
-                value="{{ old('name') }}"
-            >
-
-            @error('name')
-                <div class="text-danger mt-1">
-                    {{ $message }}
-                </div>
-            @enderror
-
+        @error('name')
+        <div class="text-danger mt-1">
+            {{ $message }}
         </div>
+        @enderror
 
-        <button type="submit"
-                class="btn btn-primary">
+    </div>
 
-            Save
+    <button type="submit"
+        class="btn btn-primary">
+        Save
+    </button>
 
-        </button>
+</form>
 
-    </form>
-
-</div>
-
-</body>
-</html>
+@endsection

@@ -4,11 +4,11 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <h1 class="display-6 mb-3">Category Management</h1>
+    <h1 class="display-6 mb-3">Member Management</h1>
 
-    <a href="{{ route('categories.create') }}"
+    <a href="{{ route('members.create') }}"
         class="btn btn-primary">
-        Add Category
+        Add Member
     </a>
 
 </div>
@@ -24,29 +24,35 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Category Name</th>
+            <th>NIM</th>
+            <th>Member Name</th>
+            <th>Email</th>
+            <th>Address</th>
             <th width="180">Action</th>
         </tr>
     </thead>
 
     <tbody>
 
-        @forelse($categories as $category)
+        @forelse($members as $member)
 
         <tr>
 
             <td>{{ $loop->iteration }}</td>
 
-            <td class="">{{ $category->name }}</td>
+            <td class="">{{ $member->nim }}</td>
+            <td class="">{{ $member->name }}</td>
+            <td class="">{{ $member->email }}</td>
+            <td class="">{{ $member->address }}</td>
 
             <td>
 
-                <a href="{{ route('categories.edit', $category) }}"
+                <a href="{{ route('members.edit', $member) }}"
                     class="btn btn-warning btn-sm px-3">
                     Edit
                 </a>
 
-                <form action="{{ route('categories.destroy', $category) }}"
+                <form action="{{ route('members.destroy', $member) }}"
                     method="POST"
                     class="d-inline">
 
@@ -55,7 +61,7 @@
 
                     <button type="submit"
                         class="btn btn-danger btn-sm px-4"
-                        onclick="return confirm('Delete this category?')">
+                        onclick="return confirm('Delete this member?')">
                         Delete
                     </button>
 
@@ -68,8 +74,8 @@
         @empty
 
         <tr>
-            <td colspan="3" class="text-center">
-                No categories found.
+            <td colspan="7" class="text-center">
+                No members found.
             </td>
         </tr>
 
