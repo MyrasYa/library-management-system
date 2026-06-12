@@ -2,104 +2,53 @@
 
 @section('content')
 
-<h2 class="display-6 mb-3">Edit Member</h2>
+<div class="card shadow-sm border-0">
 
-<a href="{{ route('members.index') }}"
-    class="btn btn-secondary mb-3">
-    Back
-</a>
+    <div class="card-body">
 
-<form action="{{ route('members.update', $member) }}"
-    method="POST">
+        <h1 class="h3 fw-bold mb-4">
+            Edit Member
+        </h1>
 
-    @csrf
-    @method('PUT')
+        <form action="{{ route('members.update', $member) }}"
+            method="POST">
 
-    <div class="mb-3">
+            @csrf
+            @method('PUT')
 
-        <label class="form-label">
-            NIM
-        </label>
+            <div class="mb-3">
+                <label class="form-label">NIM</label>
+                <input type="text" name="nim" class="form-control" value="{{ old('nim', $member->nim) }}">
+            </div>
 
-        <input
-            type="text"
-            name="nim"
-            class="form-control"
-            value="{{ old('nim', $member->nim) }}">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" value="{{ old('name', $member->name) }}">
+            </div>
 
-        @error('nim')
-        <div class="text-danger mt-1">
-            {{ $message }}
-        </div>
-        @enderror
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" value="{{ old('email', $member->email) }}">
+            </div>
 
-    </div>
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <textarea name="address" rows="3" class="form-control">{{ old('address', $member->address) }}</textarea>
+            </div>
 
-    <div class="mb-3">
+            <button class="btn btn-primary">
+                Update
+            </button>
 
-        <label class="form-label">
-            Member Name
-        </label>
+            <a href="{{ route('members.index') }}"
+                class="btn btn-secondary">
+                Back
+            </a>
 
-        <input
-            type="text"
-            name="name"
-            class="form-control"
-            value="{{ old('name', $member->name) }}">
-
-        @error('name')
-        <div class="text-danger mt-1">
-            {{ $message }}
-        </div>
-        @enderror
+        </form>
 
     </div>
 
-    <div class="mb-3">
-
-        <label class="form-label">
-            Email
-        </label>
-
-        <input
-            type="text"
-            name="email"
-            class="form-control"
-            value="{{ old('email', $member->email) }}">
-
-        @error('email')
-        <div class="text-danger mt-1">
-            {{ $message }}
-        </div>
-        @enderror
-
-    </div>
-
-    <div class="mb-3">
-
-        <label class="form-label">
-            Address
-        </label>
-
-        <input
-            type="text"
-            name="address"
-            class="form-control"
-            value="{{ old('address', $member->address) }}">
-
-        @error('email')
-        <div class="text-danger mt-1">
-            {{ $message }}
-        </div>
-        @enderror
-
-    </div>
-
-    <button type="submit"
-        class="btn btn-primary">
-        Update
-    </button>
-
-</form>
+</div>
 
 @endsection

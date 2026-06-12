@@ -1,24 +1,110 @@
 @extends('layouts.master')
 
 @section('content')
+<div class="card card-body shadow-sm border-0 mx-auto">
 
-<h1 class="display-6 mb-4">
-    Dashboard
-</h1>
+    <div class="mb-4">
 
-<div class="row">
+        <h1 class="h3 fw-bold mb-1">
+            Dashboard
+        </h1>
 
-    <div class="col-md-3 mb-3">
+        <p class="text-muted mb-0">
+            Welcome to Library Management System.
+        </p>
 
-        <div class="card">
 
-            <div class="card-body text-center">
+    </div>
 
-                <h5>Total Categories</h5>
+    <div class="row g-4">
 
-                <h2 id="totalCategories">
-                    ...
-                </h2>
+        <div class="col-md-6 col-xl-3">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted mb-2">
+                        Total Categories
+                    </h6>
+
+                    <h2 class="fw-bold"
+                        id="totalCategories">
+
+                        ...
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted mb-2">
+                        Total Books
+                    </h6>
+
+                    <h2 class="fw-bold"
+                        id="totalBooks">
+
+                        ...
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted mb-2">
+                        Total Members
+                    </h6>
+
+                    <h2 class="fw-bold"
+                        id="totalMembers">
+
+                        ...
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted mb-2">
+                        Active Borrowings
+                    </h6>
+
+                    <h2 class="fw-bold"
+                        id="totalBorrowings">
+
+                        ...
+
+                    </h2>
+
+                </div>
 
             </div>
 
@@ -26,60 +112,65 @@
 
     </div>
 
-    <div class="col-md-3 mb-3">
+    <div class="row mt-4">
 
-        <div class="card">
+        <div class="col-lg-8 mb-4">
 
-            <div class="card-body text-center">
+            <div class="card shadow-sm border-0 h-100">
 
-                <h5>Total Books</h5>
+                <div class="card-body">
 
-                <h2 id="totalBooks">
-                    ...
-                </h2>
+                    <h5 class="mb-2 h4 fw-bold">
+                        System Overview
+                    </h5>
+
+                    <p class="text-muted mb-0">
+
+                        This library management system helps manage
+                        categories, books, members, and borrowing
+                        transactions efficiently.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 mb-4">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <h5 class="mb-2 h4 fw-bold">
+                        Logged In User
+                    </h5>
+
+                    <p class="mb-2 fst-italic" >
+
+                        <strong>Name:</strong>
+
+                        {{ Auth::user()->name }}
+
+                    </p>
+
+                    <p class="mb-0 fst-italic">
+
+                        <strong>Email:</strong>
+
+                        {{ Auth::user()->email }}
+
+                    </p>
+
+                </div>
 
             </div>
 
         </div>
 
     </div>
-
-    <div class="col-md-3 mb-3">
-
-        <div class="card">
-
-            <div class="card-body text-center">
-
-                <h5>Total Members</h5>
-
-                <h2 id="totalMembers">
-                    ...
-                </h2>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="col-md-3 mb-3">
-
-        <div class="card">
-
-            <div class="card-body text-center">
-
-                <h5>Borrowed Books</h5>
-
-                <h2 id="totalBorrowings">
-                    ...
-                </h2>
-
-            </div>
-
-        </div>
-
-    </div>
-
 </div>
 
 <script>
@@ -89,17 +180,10 @@
 
         .then(data => {
 
-            document.getElementById('totalCategories')
-                .innerText = data.categories;
-
-            document.getElementById('totalBooks')
-                .innerText = data.books;
-
-            document.getElementById('totalMembers')
-                .innerText = data.members;
-
-            document.getElementById('totalBorrowings')
-                .innerText = data.borrowings;
+            document.getElementById('totalCategories').innerText = data.categories;
+            document.getElementById('totalBooks').innerText = data.books;
+            document.getElementById('totalMembers').innerText = data.members;
+            document.getElementById('totalBorrowings').innerText = data.borrowings;
 
         });
 </script>

@@ -2,45 +2,60 @@
 
 @section('content')
 
-<h1 class="display-6 mb-3">Edit Category</h1>
+<div class="card shadow-sm border-0">
 
-<a href="{{ route('categories.index') }}"
-   class="btn btn-secondary mb-3">
-    Back
-</a>
+    <div class="card-body">
 
-<form action="{{ route('categories.update', $category) }}"
-      method="POST">
+        <h1 class="h3 fw-bold mb-4">
+            Edit Category
+        </h1>
 
-    @csrf
-    @method('PUT')
+        <form action="{{ route('categories.update', $category) }}"
+            method="POST">
 
-    <div class="mb-3">
+            @csrf
+            @method('PUT')
 
-        <label class="form-label">
-            Category Name
-        </label>
+            <div class="mb-3">
 
-        <input
-            type="text"
-            name="name"
-            class="form-control"
-            value="{{ old('name', $category->name) }}"
-        >
+                <label class="form-label">
+                    Category Name
+                </label>
 
-        @error('name')
-            <div class="text-danger mt-1">
-                {{ $message }}
+                <input
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    value="{{ old('name', $category->name) }}">
+
+                @error('name')
+
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+
+                @enderror
+
             </div>
-        @enderror
+
+            <div class="mt-4">
+
+                <button type="submit"
+                    class="btn btn-primary">
+                    Update
+                </button>
+
+                <a href="{{ route('categories.index') }}"
+                    class="btn btn-secondary">
+                    Back
+                </a>
+
+            </div>
+
+        </form>
 
     </div>
 
-    <button type="submit"
-            class="btn btn-primary">
-        Update
-    </button>
-
-</form>
+</div>
 
 @endsection

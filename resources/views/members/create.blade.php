@@ -2,103 +2,76 @@
 
 @section('content')
 
-<h2 class="display-6 mb-3">Add Member</h2>
+<div class="card shadow-sm border-0">
 
-<a href="{{ route('members.index') }}"
-    class="btn btn-secondary mb-3">
-    Back
-</a>
+    <div class="card-body">
 
-<form action="{{ route('members.store') }}"
-    method="POST">
+        <h1 class="h3 fw-bold mb-4">
+            Add Member
+        </h1>
 
-    @csrf
+        <form action="{{ route('members.store') }}"
+            method="POST">
 
-    <div class="mb-3">
+            @csrf
 
-        <label class="form-label">
-            NIM
-        </label>
+            <div class="mb-3">
+                <label class="form-label">NIM</label>
+                <input type="text" name="nim" class="form-control" value="{{ old('nim') }}">
 
-        <input
-            type="text"
-            name="nim"
-            class="form-control"
-            value="{{ old('nim') }}">
+                @error('nim')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
 
-        @error('nim')
-        <div class="text-danger mt-1">
-            {{ $message }}
-        </div>
-        @enderror
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" value="{{ old('name') }}">
 
-    </div>
+                @error('name')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
 
-    <div class="mb-3">
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" value="{{ old('email') }}">
 
-        <label class="form-label">
-            Member Name
-        </label>
+                @error('email')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
 
-        <input
-            type="text"
-            name="name"
-            class="form-control"
-            value="{{ old('name') }}">
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <textarea name="address" rows="3" class="form-control">{{ old('address') }}</textarea>
 
-        @error('name')
-        <div class="text-danger mt-1">
-            {{ $message }}
-        </div>
-        @enderror
+                @error('address')
+                <div class="text-danger mt-1">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
 
-    </div>
+            <button class="btn btn-primary">
+                Save
+            </button>
 
-    <div class="mb-3">
+            <a href="{{ route('members.index') }}"
+                class="btn btn-secondary">
+                Back
+            </a>
 
-        <label class="form-label">
-           Email
-        </label>
-
-        <input
-            type="text"
-            name="email"
-            class="form-control"
-            value="{{ old('email') }}">
-
-        @error('email')
-        <div class="text-danger mt-1">
-            {{ $message }}
-        </div>
-        @enderror
+        </form>
 
     </div>
 
-    <div class="mb-3">
-
-        <label class="form-label">
-           Address
-        </label>
-
-        <input
-            type="text"
-            name="address"
-            class="form-control"
-            value="{{ old('address') }}">
-
-        @error('email')
-        <div class="text-danger mt-1">
-            {{ $message }}
-        </div>
-        @enderror
-
-    </div>
-
-    <button type="submit"
-        class="btn btn-primary">
-        Save
-    </button>
-
-</form>
+</div>
 
 @endsection

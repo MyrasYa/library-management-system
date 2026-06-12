@@ -2,158 +2,178 @@
 
 @section('content')
 
-<h1 class="display-6 mb-4">
-    Add Borrowing
-</h1>
+<div class="card shadow-sm border-0">
 
-<a href="{{ route('borrowings.index') }}"
-   class="btn btn-secondary mb-3">
-    Back
-</a>
+    <div class="card-body">
 
-<form action="{{ route('borrowings.store') }}"
-      method="POST">
+        <h1 class="h3 fw-bold mb-4">
+            Add Borrowing
+        </h1>
 
-    @csrf
+        <form action="{{ route('borrowings.store') }}"
+            method="POST">
 
-    <div class="mb-3">
+            @csrf
 
-        <label class="form-label">
-            Book
-        </label>
+            <div class="row">
 
-        <select name="book_id"
-                class="form-select">
+                <div class="col-md-6 mb-3">
 
-            <option value="">
-                Choose Book
-            </option>
+                    <label class="form-label">
+                        Book
+                    </label>
 
-            @foreach($books as $book)
+                    <select name="book_id"
+                        class="form-select">
 
-                <option value="{{ $book->id }}"
-                    {{ old('book_id') == $book->id ? 'selected' : '' }}>
+                        <option value="">
+                            Choose Book
+                        </option>
 
-                    {{ $book->title }}
+                        @foreach($books as $book)
 
-                </option>
+                        <option value="{{ $book->id }}"
+                            {{ old('book_id') == $book->id ? 'selected' : '' }}>
 
-            @endforeach
+                            {{ $book->title }}
 
-        </select>
+                        </option>
 
-        @error('book_id')
-            <div class="text-danger mt-1">
-                {{ $message }}
+                        @endforeach
+
+                    </select>
+
+                    @error('book_id')
+
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
+
+                    @enderror
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Member
+                    </label>
+
+                    <select name="member_id"
+                        class="form-select">
+
+                        <option value="">
+                            Choose Member
+                        </option>
+
+                        @foreach($members as $member)
+
+                        <option value="{{ $member->id }}"
+                            {{ old('member_id') == $member->id ? 'selected' : '' }}>
+
+                            {{ $member->name }}
+
+                        </option>
+
+                        @endforeach
+
+                    </select>
+
+                    @error('member_id')
+
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
+
+                    @enderror
+
+                </div>
+
             </div>
-        @enderror
 
-    </div>
+            <div class="row">
 
-    <div class="mb-3">
+                <div class="col-md-6 mb-3">
 
-        <label class="form-label">
-            Member
-        </label>
+                    <label class="form-label">
+                        Borrow Date
+                    </label>
 
-        <select name="member_id"
-                class="form-select">
+                    <input
+                        type="date"
+                        name="borrow_date"
+                        class="form-control"
+                        value="{{ old('borrow_date') }}">
 
-            <option value="">
-                Choose Member
-            </option>
+                    @error('borrow_date')
 
-            @foreach($members as $member)
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
 
-                <option value="{{ $member->id }}"
-                    {{ old('member_id') == $member->id ? 'selected' : '' }}>
+                    @enderror
 
-                    {{ $member->name }}
+                </div>
 
-                </option>
+                <div class="col-md-6 mb-3">
 
-            @endforeach
+                    <label class="form-label">
+                        Return Date
+                    </label>
 
-        </select>
+                    <input
+                        type="date"
+                        name="return_date"
+                        class="form-control"
+                        value="{{ old('return_date') }}">
 
-        @error('member_id')
-            <div class="text-danger mt-1">
-                {{ $message }}
+                    @error('return_date')
+
+                    <div class="text-danger mt-1">
+                        {{ $message }}
+                    </div>
+
+                    @enderror
+
+                </div>
+
             </div>
-        @enderror
 
-    </div>
+            <div class="mb-4">
 
-    <div class="mb-3">
+                <label class="form-label">
+                    Status
+                </label>
 
-        <label class="form-label">
-            Borrow Date
-        </label>
+                <select name="status"
+                    class="form-select">
 
-        <input
-            type="date"
-            name="borrow_date"
-            class="form-control"
-            value="{{ old('borrow_date') }}"
-        >
+                    <option value="borrowed">
+                        Borrowed
+                    </option>
 
-        @error('borrow_date')
-            <div class="text-danger mt-1">
-                {{ $message }}
+                    <option value="returned">
+                        Returned
+                    </option>
+
+                </select>
+
             </div>
-        @enderror
+
+            <button type="submit"
+                class="btn btn-primary">
+                Save
+            </button>
+
+            <a href="{{ route('borrowings.index') }}"
+                class="btn btn-secondary">
+                Back
+            </a>
+
+        </form>
 
     </div>
 
-    <div class="mb-3">
-
-        <label class="form-label">
-            Return Date
-        </label>
-
-        <input
-            type="date"
-            name="return_date"
-            class="form-control"
-            value="{{ old('return_date') }}"
-        >
-
-        @error('return_date')
-            <div class="text-danger mt-1">
-                {{ $message }}
-            </div>
-        @enderror
-
-    </div>
-
-    <div class="mb-3">
-
-        <label class="form-label">
-            Status
-        </label>
-
-        <select name="status"
-                class="form-select">
-
-            <option value="borrowed">
-                Borrowed
-            </option>
-
-            <option value="returned">
-                Returned
-            </option>
-
-        </select>
-
-    </div>
-
-    <button type="submit"
-            class="btn btn-primary">
-
-        Save
-
-    </button>
-
-</form>
+</div>
 
 @endsection
