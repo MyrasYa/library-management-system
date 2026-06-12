@@ -17,7 +17,9 @@ class BookController extends Controller
             ->latest()
             ->get();
 
-        return view('books.index', compact('books'));
+        $categories = Category::orderBy('name')->get();
+
+        return view('books.index', compact('books', 'categories'));
     }
 
     /**
@@ -88,5 +90,54 @@ class BookController extends Controller
         return redirect()
             ->route('books.index')
             ->with('success', 'Book deleted successfully.');
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->keyword;
+
+        $books = Book::with('category')
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('title', 'like', "%{$keyword}%");
+            })
+            ->latest()
+            ->get();
+
+        return response()->json($books);
+    }
+
+    public function filter(Request $request)
+    {
+        $categoryId = $request->category_id;
+
+        $books = Book::with('category')
+            ->when($categoryId, function ($query) use ($categoryId) {
+                $query->where('category_id', $categoryId);
+            })
+            ->latest()
+            ->get();
+
+        return response()->json($books);
+    }
+
+    public function filterSearch(Request $request)
+    {
+        $keyword = $request->keyword;
+        $categoryId = $request->category_id;
+
+        $books = Book::with('category')
+
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('title', 'like', "%{$keyword}%");
+            })
+
+            ->when($categoryId, function ($query) use ($categoryId) {
+                $query->where('category_id', $categoryId);
+            })
+
+            ->latest()
+            ->get();
+
+        return response()->json($books);
     }
 }

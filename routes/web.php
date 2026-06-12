@@ -19,6 +19,26 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
 
+
+    Route::get('/books/search', [BookController::class, 'search'])
+        ->name('books.search');
+    Route::get('/books/filter', [BookController::class, 'filter'])
+        ->name('books.filter');
+    Route::get('/books/filter-search', [BookController::class, 'filterSearch'])
+        ->name('books.filter-search');
+    Route::get('/dashboard/stats', function () {
+
+        return response()->json([
+            'categories' => \App\Models\Category::count(),
+            'books' => \App\Models\Book::count(),
+            'members' => \App\Models\Member::count(),
+            'borrowings' => \App\Models\Borrowing::where(
+                'status',
+                'borrowed'
+            )->count(),
+        ]);
+    })->middleware('auth');
+
     Route::resource('categories', CategoryController::class);
     Route::resource('books', BookController::class);
     Route::resource('members', MemberController::class);
@@ -32,7 +52,6 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
-
 });
 
 require __DIR__ . '/auth.php';
